@@ -5,9 +5,11 @@ package osutils_mocks
 import (
 	"github.com/flywingedai/components/tests"
 
-	fs "io/fs"
+	csv "encoding/csv"
 
 	exec "os/exec"
+
+	fs "io/fs"
 
 	io "io"
 
@@ -29,6 +31,112 @@ type Osutils_Expecter struct {
 
 func (_m *Osutils) EXPECT() *Osutils_Expecter {
 	return &Osutils_Expecter{mock: &_m.Mock}
+}
+
+// CSVNewReader provides a mock function with given fields: r
+func (_m *Osutils) CSVNewReader(r io.Reader) *csv.Reader {
+	ret := _m.Called(r)
+
+	if len(ret) == 0 {
+		panic("no return value specified for CSVNewReader")
+	}
+
+	var r0 *csv.Reader
+	if rf, ok := ret.Get(0).(func(io.Reader) *csv.Reader); ok {
+		r0 = rf(r)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).(*csv.Reader)
+		}
+	}
+
+	return r0
+}
+
+// Osutils_CSVNewReader_Call is a *mock.Call that shadows Run/Return methods with type explicit version for method 'CSVNewReader'
+type Osutils_CSVNewReader_Call struct {
+	*mock.Call
+}
+
+// CSVNewReader is a helper method to define mock.On call
+//   - r io.Reader
+func (_e *Osutils_Expecter) CSVNewReader(r interface{}) *Osutils_CSVNewReader_Call {
+	return &Osutils_CSVNewReader_Call{Call: _e.mock.On("CSVNewReader", r)}
+}
+
+func (_c *Osutils_CSVNewReader_Call) Run(run func(r io.Reader)) *Osutils_CSVNewReader_Call {
+	_c.Call.Run(func(args mock.Arguments) {
+		run(args[0].(io.Reader))
+	})
+	return _c
+}
+
+func (_c *Osutils_CSVNewReader_Call) Return(_a0 *csv.Reader) *Osutils_CSVNewReader_Call {
+	_c.Call.Return(_a0)
+	return _c
+}
+
+func (_c *Osutils_CSVNewReader_Call) RunAndReturn(run func(io.Reader) *csv.Reader) *Osutils_CSVNewReader_Call {
+	_c.Call.Return(run)
+	return _c
+}
+
+// CSVRead provides a mock function with given fields: csvReader
+func (_m *Osutils) CSVRead(csvReader *csv.Reader) ([]string, error) {
+	ret := _m.Called(csvReader)
+
+	if len(ret) == 0 {
+		panic("no return value specified for CSVRead")
+	}
+
+	var r0 []string
+	var r1 error
+	if rf, ok := ret.Get(0).(func(*csv.Reader) ([]string, error)); ok {
+		return rf(csvReader)
+	}
+	if rf, ok := ret.Get(0).(func(*csv.Reader) []string); ok {
+		r0 = rf(csvReader)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).([]string)
+		}
+	}
+
+	if rf, ok := ret.Get(1).(func(*csv.Reader) error); ok {
+		r1 = rf(csvReader)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
+// Osutils_CSVRead_Call is a *mock.Call that shadows Run/Return methods with type explicit version for method 'CSVRead'
+type Osutils_CSVRead_Call struct {
+	*mock.Call
+}
+
+// CSVRead is a helper method to define mock.On call
+//   - csvReader *csv.Reader
+func (_e *Osutils_Expecter) CSVRead(csvReader interface{}) *Osutils_CSVRead_Call {
+	return &Osutils_CSVRead_Call{Call: _e.mock.On("CSVRead", csvReader)}
+}
+
+func (_c *Osutils_CSVRead_Call) Run(run func(csvReader *csv.Reader)) *Osutils_CSVRead_Call {
+	_c.Call.Run(func(args mock.Arguments) {
+		run(args[0].(*csv.Reader))
+	})
+	return _c
+}
+
+func (_c *Osutils_CSVRead_Call) Return(_a0 []string, _a1 error) *Osutils_CSVRead_Call {
+	_c.Call.Return(_a0, _a1)
+	return _c
+}
+
+func (_c *Osutils_CSVRead_Call) RunAndReturn(run func(*csv.Reader) ([]string, error)) *Osutils_CSVRead_Call {
+	_c.Call.Return(run)
+	return _c
 }
 
 // CommandOutput provides a mock function with given fields: cmd
@@ -938,6 +1046,94 @@ func Create_Osutils_ExpecterChain[M any](fetch func(*M) *Osutils) Osutils_Expect
 	return func(m *M) *Osutils_Expecter {
 		c := fetch(m)
 		return c.EXPECT()
+	}
+}
+
+type Osutils_CSVNewReaderChain[M any] func(*M) *Osutils_CSVNewReader_Call
+
+func (_c Osutils_ExpecterChain[M]) CSVNewReader(r interface{}) Osutils_CSVNewReaderChain[M] {
+	return func(m *M) *Osutils_CSVNewReader_Call {
+		expecter := _c(m)
+		return expecter.CSVNewReader(r)
+	}
+}
+
+func (_c Osutils_CSVNewReaderChain[M]) Run(run func(r io.Reader)) Osutils_CSVNewReaderChain[M] {
+	return func(m *M) *Osutils_CSVNewReader_Call {
+		call := _c(m)
+		return call.Run(run)
+	}
+}
+
+func (_c Osutils_CSVNewReaderChain[M]) Return(_a0 *csv.Reader) Osutils_CSVNewReaderChain[M] {
+	return func(m *M) *Osutils_CSVNewReader_Call {
+		call := _c(m)
+		return call.Return(_a0)
+	}
+}
+
+func (_c Osutils_CSVNewReaderChain[M]) RunAndReturn(run func(r io.Reader) *csv.Reader) Osutils_CSVNewReaderChain[M] {
+	return func(m *M) *Osutils_CSVNewReader_Call {
+		call := _c(m)
+		return call.RunAndReturn(run)
+	}
+}
+
+func (_c Osutils_ExpecterChain[M]) CSVNewReader_Pointer(r interface{}) Osutils_CSVNewReaderChain[M] {
+	return func(m *M) *Osutils_CSVNewReader_Call {
+		expecter := _c(m)
+		return expecter.CSVNewReader(tests.RemoveInterfacePointer[io.Reader](r))
+	}
+}
+
+func (_c Osutils_CSVNewReaderChain[M]) Return_Pointer(_a0 **csv.Reader) Osutils_CSVNewReaderChain[M] {
+	return func(m *M) *Osutils_CSVNewReader_Call {
+		call := _c(m)
+		return call.Return(*_a0)
+	}
+}
+
+type Osutils_CSVReadChain[M any] func(*M) *Osutils_CSVRead_Call
+
+func (_c Osutils_ExpecterChain[M]) CSVRead(csvReader interface{}) Osutils_CSVReadChain[M] {
+	return func(m *M) *Osutils_CSVRead_Call {
+		expecter := _c(m)
+		return expecter.CSVRead(csvReader)
+	}
+}
+
+func (_c Osutils_CSVReadChain[M]) Run(run func(csvReader *csv.Reader)) Osutils_CSVReadChain[M] {
+	return func(m *M) *Osutils_CSVRead_Call {
+		call := _c(m)
+		return call.Run(run)
+	}
+}
+
+func (_c Osutils_CSVReadChain[M]) Return(record []string, err error) Osutils_CSVReadChain[M] {
+	return func(m *M) *Osutils_CSVRead_Call {
+		call := _c(m)
+		return call.Return(record, err)
+	}
+}
+
+func (_c Osutils_CSVReadChain[M]) RunAndReturn(run func(csvReader *csv.Reader) ([]string, error)) Osutils_CSVReadChain[M] {
+	return func(m *M) *Osutils_CSVRead_Call {
+		call := _c(m)
+		return call.RunAndReturn(run)
+	}
+}
+
+func (_c Osutils_ExpecterChain[M]) CSVRead_Pointer(csvReader interface{}) Osutils_CSVReadChain[M] {
+	return func(m *M) *Osutils_CSVRead_Call {
+		expecter := _c(m)
+		return expecter.CSVRead(tests.RemoveInterfacePointer[*csv.Reader](csvReader))
+	}
+}
+
+func (_c Osutils_CSVReadChain[M]) Return_Pointer(record *[]string, err *error) Osutils_CSVReadChain[M] {
+	return func(m *M) *Osutils_CSVRead_Call {
+		call := _c(m)
+		return call.Return(*record, *err)
 	}
 }
 

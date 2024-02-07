@@ -1,6 +1,7 @@
 package osutils
 
 import (
+	"encoding/csv"
 	"io"
 	"io/fs"
 	"os"
@@ -25,6 +26,8 @@ func (p *Params) Convert() *osutils {
 // Component version: v0.1.0
 
 type Osutils interface {
+	CSVNewReader(r io.Reader) *csv.Reader
+	CSVRead(csvReader *csv.Reader) ([]string, error)
 	CommandStart(cmd *exec.Cmd) error
 	CommandWait(cmd *exec.Cmd) error
 	CommandOutput(cmd *exec.Cmd) ([]byte, error)
