@@ -7,6 +7,10 @@ import (
 	"os"
 )
 
+func (o *osutils) ReadDir(name string) ([]fs.DirEntry, error) {
+	return os.ReadDir(name)
+}
+
 func (o *osutils) Stat(name string) (fs.FileInfo, error) {
 	return os.Stat(name)
 }

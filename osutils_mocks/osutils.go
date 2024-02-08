@@ -768,6 +768,64 @@ func (_c *Osutils_Open_Call) RunAndReturn(run func(string) (*os.File, error)) *O
 	return _c
 }
 
+// ReadDir provides a mock function with given fields: name
+func (_m *Osutils) ReadDir(name string) ([]fs.DirEntry, error) {
+	ret := _m.Called(name)
+
+	if len(ret) == 0 {
+		panic("no return value specified for ReadDir")
+	}
+
+	var r0 []fs.DirEntry
+	var r1 error
+	if rf, ok := ret.Get(0).(func(string) ([]fs.DirEntry, error)); ok {
+		return rf(name)
+	}
+	if rf, ok := ret.Get(0).(func(string) []fs.DirEntry); ok {
+		r0 = rf(name)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).([]fs.DirEntry)
+		}
+	}
+
+	if rf, ok := ret.Get(1).(func(string) error); ok {
+		r1 = rf(name)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
+// Osutils_ReadDir_Call is a *mock.Call that shadows Run/Return methods with type explicit version for method 'ReadDir'
+type Osutils_ReadDir_Call struct {
+	*mock.Call
+}
+
+// ReadDir is a helper method to define mock.On call
+//   - name string
+func (_e *Osutils_Expecter) ReadDir(name interface{}) *Osutils_ReadDir_Call {
+	return &Osutils_ReadDir_Call{Call: _e.mock.On("ReadDir", name)}
+}
+
+func (_c *Osutils_ReadDir_Call) Run(run func(name string)) *Osutils_ReadDir_Call {
+	_c.Call.Run(func(args mock.Arguments) {
+		run(args[0].(string))
+	})
+	return _c
+}
+
+func (_c *Osutils_ReadDir_Call) Return(_a0 []fs.DirEntry, _a1 error) *Osutils_ReadDir_Call {
+	_c.Call.Return(_a0, _a1)
+	return _c
+}
+
+func (_c *Osutils_ReadDir_Call) RunAndReturn(run func(string) ([]fs.DirEntry, error)) *Osutils_ReadDir_Call {
+	_c.Call.Return(run)
+	return _c
+}
+
 // Remove provides a mock function with given fields: name
 func (_m *Osutils) Remove(name string) error {
 	ret := _m.Called(name)
@@ -1352,6 +1410,50 @@ func (_c Osutils_ExpecterChain[M]) StdoutPipe_Pointer(cmd interface{}) Osutils_S
 
 func (_c Osutils_StdoutPipeChain[M]) Return_Pointer(_a0 *io.ReadCloser, _a1 *error) Osutils_StdoutPipeChain[M] {
 	return func(m *M) *Osutils_StdoutPipe_Call {
+		call := _c(m)
+		return call.Return(*_a0, *_a1)
+	}
+}
+
+type Osutils_ReadDirChain[M any] func(*M) *Osutils_ReadDir_Call
+
+func (_c Osutils_ExpecterChain[M]) ReadDir(name interface{}) Osutils_ReadDirChain[M] {
+	return func(m *M) *Osutils_ReadDir_Call {
+		expecter := _c(m)
+		return expecter.ReadDir(name)
+	}
+}
+
+func (_c Osutils_ReadDirChain[M]) Run(run func(name string)) Osutils_ReadDirChain[M] {
+	return func(m *M) *Osutils_ReadDir_Call {
+		call := _c(m)
+		return call.Run(run)
+	}
+}
+
+func (_c Osutils_ReadDirChain[M]) Return(_a0 []fs.DirEntry, _a1 error) Osutils_ReadDirChain[M] {
+	return func(m *M) *Osutils_ReadDir_Call {
+		call := _c(m)
+		return call.Return(_a0, _a1)
+	}
+}
+
+func (_c Osutils_ReadDirChain[M]) RunAndReturn(run func(name string) ([]fs.DirEntry, error)) Osutils_ReadDirChain[M] {
+	return func(m *M) *Osutils_ReadDir_Call {
+		call := _c(m)
+		return call.RunAndReturn(run)
+	}
+}
+
+func (_c Osutils_ExpecterChain[M]) ReadDir_Pointer(name interface{}) Osutils_ReadDirChain[M] {
+	return func(m *M) *Osutils_ReadDir_Call {
+		expecter := _c(m)
+		return expecter.ReadDir(tests.RemoveInterfacePointer[string](name))
+	}
+}
+
+func (_c Osutils_ReadDirChain[M]) Return_Pointer(_a0 *[]fs.DirEntry, _a1 *error) Osutils_ReadDirChain[M] {
+	return func(m *M) *Osutils_ReadDir_Call {
 		call := _c(m)
 		return call.Return(*_a0, *_a1)
 	}

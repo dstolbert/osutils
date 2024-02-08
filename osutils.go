@@ -33,6 +33,7 @@ type Osutils interface {
 	CommandOutput(cmd *exec.Cmd) ([]byte, error)
 	SyscallKill(pid int, sig syscall.Signal) error
 	StdoutPipe(cmd *exec.Cmd) (io.ReadCloser, error)
+	ReadDir(name string) ([]fs.DirEntry, error)
 	Stat(name string) (fs.FileInfo, error)
 	Open(name string) (*os.File, error)
 	Create(name string) (*os.File, error)
